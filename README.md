@@ -1,73 +1,94 @@
-# React + TypeScript + Vite
+# ForceDesk
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+macOS 桌面小工具應用程式，以透明覆蓋層顯示各種實用資訊。
 
-Currently, two official plugins are available:
+## 功能特色
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 系統監控
+- CPU 使用率與核心數
+- 記憶體使用量
+- 網路上傳/下載速度
+- 磁碟使用空間
 
-## React Compiler
+### 資訊小工具
+- **天氣** - 即時溫度、天氣狀況、空氣品質指數（AQI）
+- **股市** - 台灣加權指數、美股三大指數（S&P 500、道瓊、NASDAQ）
+- **AI 新聞** - 自動抓取並翻譯 AI 相關新聞
+- **星座運勢** - 今日運勢與幸運指數
+- **Vibe Coding 吉凶** - 工程師專屬的每日開發運勢
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 生產力工具
+- **行事曆** - 當月日曆檢視
+- **待辦事項** - 整合 macOS 提醒事項
+- **番茄鐘** - 專注計時器
 
-## Expanding the ESLint configuration
+### 視覺效果
+- Matrix Rain 背景動畫
+- 深色玻璃擬態設計風格
+- RGB 氛圍燈效果
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 技術架構
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **前端**: React 19 + TypeScript + Vite
+- **桌面框架**: Electron
+- **系統資訊**: systeminformation
+- **樣式**: 純 CSS（深色玻璃擬態風格）
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 安裝
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+# 安裝依賴
+npm install
+
+# 編譯 Electron TypeScript
+npx tsc -p tsconfig.electron.json
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 開發
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+# 開發模式（前端 + Electron）
+npm run dev:electron
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# 僅前端開發
+npm run dev
+
+# 程式碼檢查
+npm run lint
 ```
+
+## 建置
+
+```bash
+# 建置專案
+npm run build
+
+# 打包 Electron 應用程式
+npm run build:electron
+```
+
+## 專案結構
+
+```
+forcedesk/
+├── electron/           # Electron 主進程
+│   ├── main.ts         # 視窗管理、IPC、外部 API
+│   ├── preload.ts      # Context Bridge
+│   └── system-info.ts  # 系統資訊收集
+├── src/                # React 前端
+│   ├── components/     # UI 元件
+│   ├── App.tsx         # 主佈局
+│   └── types.ts        # TypeScript 型別
+└── package.json
+```
+
+## 外部服務
+
+- [Open-Meteo](https://open-meteo.com/) - 天氣與空氣品質 API
+- [Yahoo Finance](https://finance.yahoo.com/) - 股市資料
+- [NewsAPI](https://newsapi.org/) - 新聞來源
+- [Claude CLI](https://claude.ai/) - AI 新聞翻譯與 Vibe Coding 生成
+
+## 授權
+
+MIT License
