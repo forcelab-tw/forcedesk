@@ -4,7 +4,7 @@
   height: 100vh;
   display: flex;
   justify-content: space-between;
-  padding: 20px;
+  padding: var(--spacing-xl);
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -13,7 +13,7 @@
 .widget-column {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--spacing-xl);
 }
 
 .widget-column-left {
@@ -27,7 +27,7 @@
 /* 橫向排列容器 */
 .widget-row {
   display: flex;
-  gap: 20px;
+  gap: var(--spacing-xl);
   align-items: flex-start;
 }
 
@@ -35,18 +35,18 @@
 .widget-stack {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--spacing-xl);
 }
 
 /* Widget 基本樣式 */
 .widget {
   width: 280px;
-  padding: 16px;
-  background: rgba(0, 0, 0, 0.65);
+  padding: var(--spacing-lg);
+  background: var(--color-bg-primary);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
   user-select: none;
   pointer-events: auto;
   will-change: backdrop-filter;
@@ -54,30 +54,30 @@
 }
 
 .widget-title {
-  font-size: 11px;
+  font-size: var(--font-sm);
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--color-text-muted);
   text-transform: uppercase;
   letter-spacing: 1px;
-  margin-bottom: 12px;
+  margin-bottom: var(--spacing-md);
 }
 
 .widget-close {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
   width: 20px;
   height: 20px;
   padding: 0;
   border: none;
-  background: rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 16px;
+  background: var(--color-bg-hover);
+  color: var(--color-text-secondary);
+  font-size: var(--font-xl);
   line-height: 18px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   cursor: pointer;
   opacity: 0;
-  transition: opacity 0.2s, background-color 0.2s;
+  transition: opacity var(--transition-normal), background-color var(--transition-normal);
 }
 
 .widget:hover .widget-close {
@@ -92,7 +92,7 @@
 /* 時鐘 */
 .clock {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: var(--spacing-xl);
 }
 
 .clock-time {
@@ -110,16 +110,16 @@
 }
 
 .clock-date {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.7);
-  margin-top: 4px;
+  font-size: var(--font-base);
+  color: var(--color-text-secondary);
+  margin-top: var(--spacing-xs);
 }
 
 /* 圓環儀表板 */
 .gauges {
   display: flex;
   justify-content: space-around;
-  margin-bottom: 20px;
+  margin-bottom: var(--spacing-xl);
 }
 
 .gauge-ring {
@@ -146,101 +146,101 @@
 }
 
 .gauge-ring-label {
-  margin-top: 8px;
-  font-size: 12px;
+  margin-top: var(--spacing-sm);
+  font-size: var(--font-base);
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--color-text-primary);
 }
 
 .gauge-ring-sublabel {
   font-size: 10px;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--color-text-muted);
   margin-top: 2px;
 }
 
 /* 網路統計 */
 .network-stats {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
-  padding: 12px;
-  margin-bottom: 12px;
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
 }
 
 .network-stats-title {
-  font-size: 11px;
+  font-size: var(--font-sm);
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--color-text-secondary);
   text-transform: uppercase;
   letter-spacing: 1px;
-  margin-bottom: 8px;
+  margin-bottom: var(--spacing-sm);
 }
 
 .network-stats-row {
   display: flex;
   align-items: center;
-  padding: 4px 0;
+  padding: var(--spacing-xs) 0;
 }
 
 .network-stats-icon {
   width: 20px;
-  font-size: 14px;
+  font-size: var(--font-lg);
 }
 
 .network-stats-icon:first-child {
-  color: #4ade80;
+  color: var(--color-success);
 }
 
 .network-stats-row:last-child .network-stats-icon {
-  color: #60a5fa;
+  color: var(--color-info);
 }
 
 .network-stats-label {
   flex: 1;
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.7);
+  font-size: var(--font-base);
+  color: var(--color-text-secondary);
 }
 
 .network-stats-value {
-  font-size: 12px;
+  font-size: var(--font-base);
   font-weight: 500;
   font-variant-numeric: tabular-nums;
 }
 
 /* 磁碟使用量 */
 .disk-usage {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
-  padding: 12px;
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
 }
 
 .disk-usage-title {
-  font-size: 11px;
+  font-size: var(--font-sm);
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--color-text-secondary);
   text-transform: uppercase;
   letter-spacing: 1px;
-  margin-bottom: 8px;
+  margin-bottom: var(--spacing-sm);
 }
 
 .disk-usage-bar-container {
   height: 6px;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--color-bg-hover);
   border-radius: 3px;
   overflow: hidden;
-  margin-bottom: 8px;
+  margin-bottom: var(--spacing-sm);
 }
 
 .disk-usage-bar {
   height: 100%;
   border-radius: 3px;
-  transition: width 0.3s ease;
+  transition: width var(--transition-slow);
 }
 
 .disk-usage-info {
   display: flex;
   justify-content: space-between;
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.6);
+  font-size: var(--font-sm);
+  color: var(--color-text-secondary);
 }
 
 /* 天氣 */
@@ -251,8 +251,8 @@
 .weather-main {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 8px;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
 }
 
 .weather-icon {
@@ -274,20 +274,20 @@
 .weather-details {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--spacing-xs);
 }
 
 .weather-condition {
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.9);
+  font-size: var(--font-md);
+  color: var(--color-text-primary);
   font-weight: 500;
 }
 
 .weather-info {
   display: flex;
-  gap: 12px;
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.6);
+  gap: var(--spacing-md);
+  font-size: var(--font-sm);
+  color: var(--color-text-secondary);
 }
 
 .weather-humidity,
@@ -295,22 +295,22 @@
 .weather-aqi {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--spacing-xs);
 }
 
 /* AQI 等級顏色 */
-.aqi-excellent { color: #22c55e; } /* 優 - 綠色 */
-.aqi-good { color: #84cc16; }      /* 良 - 淺綠 */
-.aqi-moderate { color: #eab308; }  /* 普通 - 黃色 */
-.aqi-unhealthy { color: #f97316; } /* 不良 - 橘色 */
-.aqi-bad { color: #ef4444; }       /* 差 - 紅色 */
-.aqi-hazardous { color: #a855f7; } /* 危險 - 紫色 */
+.aqi-excellent { color: var(--color-success); }
+.aqi-good { color: #84cc16; }
+.aqi-moderate { color: #eab308; }
+.aqi-unhealthy { color: #f97316; }
+.aqi-bad { color: var(--color-error); }
+.aqi-hazardous { color: #a855f7; }
 
 .weather-loading {
   text-align: center;
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.6);
-  padding: 12px 0;
+  font-size: var(--font-base);
+  color: var(--color-text-secondary);
+  padding: var(--spacing-md) 0;
 }
 
 /* 行事曆 */
@@ -322,41 +322,41 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: var(--spacing-sm);
 }
 
 .calendar-title {
-  font-size: 13px;
+  font-size: var(--font-md);
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--color-text-primary);
   cursor: pointer;
-  padding: 2px 6px;
-  border-radius: 4px;
-  transition: background-color 0.2s;
+  padding: 2px var(--spacing-sm);
+  border-radius: var(--spacing-xs);
+  transition: background-color var(--transition-normal);
 }
 
 .calendar-title:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--color-bg-hover);
 }
 
 .calendar-nav {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--color-bg-hover);
   border: none;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-secondary);
   width: 24px;
   height: 24px;
-  border-radius: 4px;
-  font-size: 16px;
+  border-radius: var(--spacing-xs);
+  font-size: var(--font-xl);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.2s;
+  transition: background-color var(--transition-normal);
   pointer-events: auto;
 }
 
 .calendar-nav:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--color-bg-active);
   color: white;
 }
 
@@ -368,9 +368,9 @@
 }
 
 .calendar-weekday {
-  font-size: 9px;
+  font-size: var(--font-xs);
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--color-text-muted);
   text-align: center;
   padding: 2px 0;
 }
@@ -388,13 +388,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-radius: 4px;
+  border-radius: var(--spacing-xs);
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color var(--transition-normal);
 }
 
 .calendar-day:hover:not(.calendar-day-empty) {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--color-bg-hover);
 }
 
 .calendar-day-empty {
@@ -402,8 +402,8 @@
 }
 
 .calendar-day-number {
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.8);
+  font-size: var(--font-sm);
+  color: var(--color-text-secondary);
 }
 
 .calendar-day-today::before {
@@ -412,12 +412,12 @@
   width: 22px;
   height: 22px;
   background: rgba(96, 165, 250, 0.3);
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   z-index: 0;
 }
 
 .calendar-day-today .calendar-day-number {
-  color: #60a5fa;
+  color: var(--color-info);
   font-weight: 600;
   position: relative;
   z-index: 1;
@@ -432,86 +432,86 @@
   bottom: 2px;
   width: 4px;
   height: 4px;
-  border-radius: 50%;
-  background: var(--event-color, #60a5fa);
+  border-radius: var(--radius-full);
+  background: var(--event-color, var(--color-info));
 }
 
 /* Vibe Coding Badge (行事曆標題右側) */
 .vibe-coding-badge {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--spacing-sm);
 }
 
 .vibe-coding-hexagram {
-  font-size: 14px;
-  color: #fbbf24;
+  font-size: var(--font-lg);
+  color: var(--color-warning);
 }
 
 .vibe-coding-score {
-  font-size: 11px;
+  font-size: var(--font-sm);
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--color-text-secondary);
 }
 
 .vibe-coding-rating {
   font-size: 10px;
   font-weight: 600;
-  padding: 2px 6px;
-  border-radius: 8px;
+  padding: 2px var(--spacing-sm);
+  border-radius: var(--spacing-sm);
 }
 
 .vibe-coding-rating.rating-good {
   background: rgba(34, 197, 94, 0.2);
-  color: #22c55e;
+  color: var(--color-success);
 }
 
 .vibe-coding-rating.rating-bad {
   background: rgba(239, 68, 68, 0.2);
-  color: #ef4444;
+  color: var(--color-error);
 }
 
 .vibe-coding-rating.rating-neutral {
   background: rgba(251, 191, 36, 0.2);
-  color: #fbbf24;
+  color: var(--color-warning);
 }
 
 /* 行事曆底部宜忌 */
 .calendar-almanac {
-  margin-top: 8px;
-  padding-top: 8px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: var(--spacing-sm);
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid var(--color-border);
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--spacing-xs);
 }
 
 .almanac-row {
   display: flex;
   align-items: flex-start;
-  gap: 6px;
+  gap: var(--spacing-sm);
   font-size: 10px;
 }
 
 .almanac-label {
   font-weight: 600;
-  padding: 1px 6px;
-  border-radius: 4px;
+  padding: 1px var(--spacing-sm);
+  border-radius: var(--spacing-xs);
   flex-shrink: 0;
 }
 
 .almanac-good .almanac-label {
   background: rgba(34, 197, 94, 0.2);
-  color: #22c55e;
+  color: var(--color-success);
 }
 
 .almanac-bad .almanac-label {
   background: rgba(239, 68, 68, 0.2);
-  color: #ef4444;
+  color: var(--color-error);
 }
 
 .almanac-items {
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-secondary);
   line-height: 1.4;
 }
 
@@ -519,19 +519,19 @@
 .vibe-coding-widget {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--spacing-md);
 }
 
 .vibe-loading {
   text-align: center;
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.5);
-  padding: 20px 0;
+  font-size: var(--font-base);
+  color: var(--color-text-muted);
+  padding: var(--spacing-xl) 0;
 }
 
 .vibe-main {
   display: flex;
-  gap: 14px;
+  gap: var(--spacing-lg);
   align-items: flex-start;
 }
 
@@ -548,7 +548,7 @@
 }
 
 .vibe-ring-bg {
-  stroke: rgba(255, 255, 255, 0.1);
+  stroke: var(--color-bg-hover);
 }
 
 .vibe-ring-progress {
@@ -567,80 +567,80 @@
 
 .vibe-hexagram {
   font-family: "Apple Symbols", "Segoe UI Symbol", "Noto Sans Symbols", sans-serif;
-  font-size: 12px;
-  color: #fbbf24;
+  font-size: var(--font-base);
+  color: var(--color-warning);
   line-height: 1;
 }
 
 .vibe-score-number {
-  font-size: 20px;
+  font-size: var(--font-2xl);
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.95);
+  color: var(--color-text-primary);
   line-height: 1;
 }
 
 .vibe-rating {
-  font-size: 9px;
+  font-size: var(--font-xs);
   font-weight: 600;
-  padding: 1px 6px;
-  border-radius: 6px;
+  padding: 1px var(--spacing-sm);
+  border-radius: var(--radius-sm);
 }
 
 .vibe-rating.rating-good {
   background: rgba(34, 197, 94, 0.2);
-  color: #22c55e;
+  color: var(--color-success);
 }
 
 .vibe-rating.rating-bad {
   background: rgba(239, 68, 68, 0.2);
-  color: #ef4444;
+  color: var(--color-error);
 }
 
 .vibe-rating.rating-neutral {
   background: rgba(251, 191, 36, 0.2);
-  color: #fbbf24;
+  color: var(--color-warning);
 }
 
 .vibe-details {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--spacing-sm);
   min-width: 0;
 }
 
 .vibe-almanac {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--spacing-xs);
 }
 
 .vibe-almanac-row {
   display: flex;
   align-items: flex-start;
-  gap: 6px;
-  font-size: 11px;
+  gap: var(--spacing-sm);
+  font-size: var(--font-sm);
 }
 
 .vibe-label {
   font-weight: 600;
   padding: 1px 5px;
-  border-radius: 4px;
+  border-radius: var(--spacing-xs);
   flex-shrink: 0;
 }
 
 .vibe-good .vibe-label {
   background: rgba(34, 197, 94, 0.2);
-  color: #22c55e;
+  color: var(--color-success);
 }
 
 .vibe-bad .vibe-label {
   background: rgba(239, 68, 68, 0.2);
-  color: #ef4444;
+  color: var(--color-error);
 }
 
 .vibe-items {
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-secondary);
   line-height: 1.4;
   overflow: hidden;
   display: -webkit-box;
@@ -650,25 +650,25 @@
 
 .vibe-meta {
   display: flex;
-  gap: 8px;
+  gap: var(--spacing-sm);
   flex-wrap: wrap;
 }
 
 .vibe-planet,
 .vibe-music {
   font-size: 10px;
-  color: rgba(255, 255, 255, 0.5);
-  background: rgba(255, 255, 255, 0.05);
-  padding: 2px 6px;
-  border-radius: 4px;
+  color: var(--color-text-muted);
+  background: var(--color-bg-secondary);
+  padding: 2px var(--spacing-sm);
+  border-radius: var(--spacing-xs);
 }
 
 .vibe-verdict {
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.6);
+  font-size: var(--font-sm);
+  color: var(--color-text-secondary);
   line-height: 1.5;
-  padding-top: 8px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid var(--color-border);
 }
 
 /* Claude 用量 */
@@ -678,34 +678,34 @@
 
 .claude-usage-loading {
   text-align: center;
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.6);
-  padding: 12px 0;
+  font-size: var(--font-base);
+  color: var(--color-text-secondary);
+  padding: var(--spacing-md) 0;
 }
 
 .claude-usage-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: var(--spacing-md);
 }
 
 .claude-usage-plan {
-  font-size: 12px;
+  font-size: var(--font-base);
   font-weight: 500;
   color: #8b5cf6;
 }
 
 .claude-usage-cost {
-  font-size: 20px;
+  font-size: var(--font-2xl);
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.95);
+  color: var(--color-text-primary);
 }
 
 .claude-usage-stats {
   display: flex;
-  gap: 16px;
-  margin-bottom: 12px;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
 }
 
 .claude-usage-stat {
@@ -716,36 +716,36 @@
 
 .claude-usage-stat-label {
   font-size: 10px;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--color-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .claude-usage-stat-value {
-  font-size: 12px;
+  font-size: var(--font-base);
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--color-text-primary);
 }
 
 .claude-usage-models {
   display: flex;
-  gap: 6px;
-  margin-bottom: 12px;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
   flex-wrap: wrap;
 }
 
 .claude-usage-model-tag {
   font-size: 10px;
-  padding: 2px 8px;
+  padding: 2px var(--spacing-sm);
   background: rgba(139, 92, 246, 0.2);
   color: #a78bfa;
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   font-weight: 500;
 }
 
 .claude-usage-footer {
   font-size: 10px;
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--color-text-disabled);
 }
 
 .claude-usage-reset {
@@ -754,42 +754,42 @@
 
 .claude-usage-unavailable {
   text-align: center;
-  padding: 8px 0;
+  padding: var(--spacing-sm) 0;
 }
 
 .claude-usage-unavailable-icon {
-  font-size: 24px;
-  margin-bottom: 4px;
+  font-size: var(--font-3xl);
+  margin-bottom: var(--spacing-xs);
 }
 
 .claude-usage-unavailable-text {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.7);
+  font-size: var(--font-base);
+  color: var(--color-text-secondary);
   margin-bottom: 2px;
 }
 
 .claude-usage-unavailable-hint {
   font-size: 10px;
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--color-text-disabled);
 }
 
 /* 待辦事項 */
 .todo-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--spacing-sm);
 }
 
 .todo-stats {
   font-size: 10px;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--color-text-muted);
   text-align: right;
 }
 
 .todo-items {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--spacing-xs);
   max-height: 180px;
   overflow-y: auto;
 }
@@ -799,63 +799,63 @@
 }
 
 .todo-items::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--color-bg-active);
   border-radius: 2px;
 }
 
 .todo-empty {
   text-align: center;
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.4);
-  padding: 12px 0;
+  font-size: var(--font-base);
+  color: var(--color-text-disabled);
+  padding: var(--spacing-md) 0;
 }
 
 .todo-hint {
   font-size: 10px;
-  color: rgba(255, 255, 255, 0.3);
-  margin-top: 4px;
+  color: var(--color-text-disabled);
+  margin-top: var(--spacing-xs);
 }
 
 .todo-item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 8px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 6px;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-sm);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-sm);
   min-height: 28px;
   box-sizing: border-box;
 }
 
 .todo-item-placeholder {
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--color-bg-tertiary);
 }
 
 .todo-item-completed .todo-text {
   text-decoration: line-through;
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--color-text-disabled);
 }
 
 .todo-checkbox {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.5);
+  font-size: var(--font-base);
+  color: var(--color-text-muted);
 }
 
 .todo-item-completed .todo-checkbox {
-  color: #22c55e;
+  color: var(--color-success);
 }
 
 .todo-time {
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.5);
+  font-size: var(--font-sm);
+  color: var(--color-text-muted);
   font-variant-numeric: tabular-nums;
   flex-shrink: 0;
 }
 
 .todo-text {
   flex: 1;
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.9);
+  font-size: var(--font-base);
+  color: var(--color-text-primary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -865,8 +865,8 @@
 .todo-more {
   text-align: center;
   font-size: 10px;
-  color: rgba(255, 255, 255, 0.4);
-  padding: 4px 0;
+  color: var(--color-text-disabled);
+  padding: var(--spacing-xs) 0;
 }
 
 /* 番茄鐘 */
@@ -874,7 +874,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: var(--spacing-md);
 }
 
 .pomodoro-status {
@@ -883,7 +883,7 @@
 }
 
 .pomodoro-mode-label {
-  font-size: 12px;
+  font-size: var(--font-base);
   font-weight: 600;
 }
 
@@ -905,15 +905,15 @@
 }
 
 .pomodoro-ring-bg {
-  stroke: rgba(255, 255, 255, 0.1);
+  stroke: var(--color-bg-hover);
 }
 
 .pomodoro-ring-progress {
-  transition: stroke-dashoffset 0.3s ease;
+  transition: stroke-dashoffset var(--transition-slow);
 }
 
 .pomodoro-time {
-  font-size: 16px;
+  font-size: var(--font-xl);
   font-weight: 400;
   letter-spacing: 1px;
   z-index: 1;
@@ -925,62 +925,62 @@
 }
 
 .pomodoro-stats {
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.8);
+  font-size: var(--font-lg);
+  color: var(--color-text-secondary);
 }
 
 /* 股市 */
 .stock-market {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--spacing-md);
 }
 
 .stock-loading {
   text-align: center;
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.6);
-  padding: 12px 0;
+  font-size: var(--font-base);
+  color: var(--color-text-secondary);
+  padding: var(--spacing-md) 0;
 }
 
 .stock-section {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--spacing-sm);
 }
 
 .stock-section-title {
   font-size: 10px;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--color-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .stock-item {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 8px;
-  padding: 8px 10px;
+  background: var(--color-bg-secondary);
+  border-radius: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
 }
 
 .stock-item-header {
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin-bottom: 4px;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
 }
 
 .stock-name {
-  font-size: 12px;
+  font-size: var(--font-base);
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--color-text-primary);
 }
 
 .stock-market-open {
   width: 6px;
   height: 6px;
-  border-radius: 50%;
-  background: #22c55e;
+  border-radius: var(--radius-full);
+  background: var(--color-success);
   animation: pulse 2s infinite;
 }
 
@@ -996,23 +996,23 @@
 }
 
 .stock-price {
-  font-size: 16px;
+  font-size: var(--font-xl);
   font-weight: 600;
   font-variant-numeric: tabular-nums;
 }
 
 .stock-change {
-  font-size: 11px;
+  font-size: var(--font-sm);
   font-weight: 500;
   font-variant-numeric: tabular-nums;
 }
 
 .stock-up {
-  color: #ef4444; /* 台灣習慣：漲紅 */
+  color: var(--color-stock-up-tw);
 }
 
 .stock-down {
-  color: #22c55e; /* 台灣習慣：跌綠 */
+  color: var(--color-stock-down-tw);
 }
 
 .stock-footer {
@@ -1021,7 +1021,7 @@
 
 .stock-update-time {
   font-size: 10px;
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--color-text-disabled);
 }
 
 /* 新聞 */
@@ -1031,23 +1031,23 @@
 
 .news-loading {
   text-align: center;
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.6);
-  padding: 8px 0;
+  font-size: var(--font-base);
+  color: var(--color-text-secondary);
+  padding: var(--spacing-sm) 0;
 }
 
 .news-item {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--spacing-sm);
 }
 
 .news-image {
   width: 100%;
   height: 80px;
-  border-radius: 8px;
+  border-radius: var(--spacing-sm);
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-bg-secondary);
 }
 
 .news-image img {
@@ -1059,37 +1059,37 @@
 .news-content {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--spacing-sm);
 }
 
 .news-title {
-  font-size: 13px;
+  font-size: var(--font-md);
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--color-text-primary);
   line-height: 1.4;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  height: calc(13px * 1.4 * 2); /* 固定 2 行高度 */
+  height: calc(13px * 1.4 * 2);
 }
 
 .news-description {
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.6);
+  font-size: var(--font-sm);
+  color: var(--color-text-secondary);
   line-height: 1.5;
   display: -webkit-box;
   -webkit-line-clamp: 6;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  height: calc(11px * 1.5 * 6); /* 固定 6 行高度 */
+  height: calc(11px * 1.5 * 6);
 }
 
 .news-meta {
   display: flex;
-  gap: 8px;
+  gap: var(--spacing-sm);
   font-size: 10px;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--color-text-muted);
   align-items: center;
 }
 
@@ -1098,20 +1098,20 @@
 }
 
 .news-time {
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--color-text-disabled);
 }
 
 .news-indicator {
   margin-left: auto;
-  color: rgba(255, 255, 255, 0.3);
-  font-size: 9px;
+  color: var(--color-text-disabled);
+  font-size: var(--font-xs);
 }
 
 .news-processing {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  font-size: 9px;
+  gap: var(--spacing-xs);
+  font-size: var(--font-xs);
   color: rgba(96, 165, 250, 0.6);
 }
 
@@ -1120,32 +1120,27 @@
   display: inline-block;
   width: 6px;
   height: 6px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   background: rgba(96, 165, 250, 0.6);
   animation: pulse 1s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 0.3; transform: scale(0.8); }
-  50% { opacity: 1; transform: scale(1); }
 }
 
 /* Horoscope */
 .horoscope {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 12px;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
   background: rgba(0, 0, 0, 0.3);
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   backdrop-filter: blur(10px);
 }
 
 .horoscope-loading {
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 12px;
+  color: var(--color-text-muted);
+  font-size: var(--font-base);
   text-align: center;
-  padding: 20px 0;
+  padding: var(--spacing-xl) 0;
 }
 
 .horoscope-header {
@@ -1157,10 +1152,10 @@
 .horoscope-title {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 14px;
+  gap: var(--spacing-sm);
+  font-size: var(--font-lg);
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--color-text-primary);
 }
 
 .horoscope-icon {
@@ -1168,16 +1163,16 @@
 }
 
 .horoscope-date {
-  font-size: 11px;
+  font-size: var(--font-sm);
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.5);
-  margin-left: 4px;
+  color: var(--color-text-muted);
+  margin-left: var(--spacing-xs);
 }
 
 .horoscope-fortune-bars {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--spacing-sm);
 }
 
 .fortune-bar-item {
@@ -1189,8 +1184,8 @@
 .fortune-bar-label {
   display: flex;
   align-items: center;
-  gap: 4px;
-  font-size: 11px;
+  gap: var(--spacing-xs);
+  font-size: var(--font-sm);
 }
 
 .fortune-bar-icon {
@@ -1198,19 +1193,19 @@
 }
 
 .fortune-bar-text {
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-secondary);
 }
 
 .fortune-bar-value {
   margin-left: auto;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--color-text-primary);
   font-weight: 500;
   font-size: 10px;
 }
 
 .fortune-bar-track {
   height: 4px;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--color-bg-hover);
   border-radius: 2px;
   overflow: hidden;
 }
@@ -1224,9 +1219,9 @@
 .horoscope-lucky {
   display: flex;
   justify-content: space-between;
-  padding: 8px 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: var(--spacing-sm) 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .lucky-item {
@@ -1237,20 +1232,20 @@
 }
 
 .lucky-label {
-  font-size: 9px;
-  color: rgba(255, 255, 255, 0.4);
+  font-size: var(--font-xs);
+  color: var(--color-text-disabled);
 }
 
 .lucky-value {
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.9);
+  font-size: var(--font-sm);
+  color: var(--color-text-primary);
   font-weight: 500;
 }
 
 .horoscope-tabs {
   display: flex;
   justify-content: center;
-  gap: 8px;
+  gap: var(--spacing-sm);
 }
 
 .horoscope-tab {
@@ -1259,16 +1254,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
-  font-size: 12px;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-base);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--transition-normal);
 }
 
 .horoscope-tab:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--color-bg-hover);
 }
 
 .horoscope-tab.active {
@@ -1277,9 +1272,9 @@
 }
 
 .horoscope-text {
-  font-size: 11px;
+  font-size: var(--font-sm);
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-secondary);
   text-align: justify;
 }
 
@@ -1307,7 +1302,7 @@
   position: absolute;
   width: 150px;
   height: 150px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   background: transparent;
   box-shadow:
     0 0 30px 8px rgba(255, 0, 0, 0.4),
@@ -1315,7 +1310,7 @@
   filter: blur(8px);
   scale: var(--glow-scale);
   opacity: var(--glow-opacity);
-  transition: scale 0.3s ease-out, opacity 0.3s ease-out;
+  transition: scale var(--transition-slow), opacity var(--transition-slow);
   animation: rgb-rotate 6s linear infinite;
   z-index: 0;
   will-change: transform, opacity, scale;
@@ -1327,7 +1322,7 @@
   content: '';
   position: absolute;
   inset: -20px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   border: 20px solid transparent;
   background:
     conic-gradient(
@@ -1362,7 +1357,7 @@
   position: absolute;
   width: 150px;
   height: 150px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   border: 12px solid transparent;
   background:
     linear-gradient(black, black) padding-box,
@@ -1401,7 +1396,7 @@
   position: absolute;
   width: 126px;
   height: 126px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   background: radial-gradient(circle at 30% 30%, #1a1a1a 0%, #000000 100%);
   box-shadow:
     inset 0 2px 4px rgba(255, 255, 255, 0.1),
@@ -1458,7 +1453,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: var(--spacing-xs);
   z-index: 10;
 }
 
@@ -1466,9 +1461,9 @@
   font-family: 'Courier New', monospace;
   font-size: 10px;
   line-height: 1;
-  color: #4ade80;
+  color: var(--color-success);
   text-shadow: 0 0 8px rgba(74, 222, 128, 0.6);
-  transition: transform 0.15s ease-out;
+  transition: transform var(--transition-fast);
   white-space: pre;
 }
 
@@ -1480,33 +1475,33 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  margin-top: 4px;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-xs);
 }
 
 .dino-stage {
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.8);
+  font-size: var(--font-sm);
+  color: var(--color-text-secondary);
   font-weight: 500;
 }
 
 .dino-progress-bar {
   width: 80px;
   height: 4px;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--color-bg-hover);
   border-radius: 2px;
   overflow: hidden;
 }
 
 .dino-progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #4ade80, #22d3ee);
+  background: linear-gradient(90deg, var(--color-success), #22d3ee);
   border-radius: 2px;
-  transition: width 0.3s ease-out;
+  transition: width var(--transition-slow);
 }
 
 .dino-eggs {
-  font-size: 12px;
+  font-size: var(--font-base);
   letter-spacing: 2px;
 }
 
@@ -1517,7 +1512,7 @@
 }
 
 .dino-sparkle {
-  font-size: 14px;
+  font-size: var(--font-lg);
   animation: sparkle 1s ease-in-out infinite;
 }
 
