@@ -2,6 +2,8 @@
 
 macOS 桌面小工具應用程式，以透明覆蓋層顯示各種實用資訊。
 
+![ForceDesk 截圖](./docs/screenshot.png)
+
 ## 功能特色
 
 ### 系統監控
@@ -88,6 +90,23 @@ forcedesk/
 - [Yahoo Finance](https://finance.yahoo.com/) - 股市資料
 - [NewsAPI](https://newsapi.org/) - 新聞來源
 - [Claude CLI](https://claude.ai/) - AI 新聞翻譯與 Vibe Coding 生成
+
+## 文件
+
+### 使用指南
+- **[快速開始](./docs/guides/quick-start.md)** - 5 分鐘快速上手
+- **[常見問題](./docs/guides/faq.md)** - 疑難排解與 FAQ
+
+### 開發文件
+- **[架構設計](./docs/development/architecture.md)** - 系統架構深入解析
+- **[Widget 開發指南](./docs/development/widget-development.md)** - 如何新增自訂 Widget
+- **[貢獻指南](./docs/development/contributing.md)** - 參與專案開發
+- **[Claude Code 指引](./CLAUDE.md)** - AI 開發工具專用
+
+### 簡報資料
+- **[Cursor 開發者聚會 2025](./docs/presentations/2025-cursor-meetup.md)** - 技術分享簡報
+
+📚 **[完整文件索引](./docs/README.md)**
 
 ## 授權
 
