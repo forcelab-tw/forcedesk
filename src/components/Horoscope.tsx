@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useElectronData } from '../hooks';
+import { getScoreColor } from '../utils';
 import type { HoroscopeData } from '../types';
 
 // 運勢項目配置
@@ -13,14 +14,7 @@ const FORTUNE_ITEMS = [
 // 運勢條元件
 function FortuneBar({ value, label, icon }: { value: number; label: string; icon: string }) {
   const percentage = Math.min(100, Math.max(0, value));
-
-  // 根據數值決定顏色
-  const getColor = (val: number) => {
-    if (val >= 80) return '#4ade80'; // 綠色
-    if (val >= 60) return '#facc15'; // 黃色
-    if (val >= 40) return '#fb923c'; // 橙色
-    return '#f87171'; // 紅色
-  };
+  const color = getScoreColor(value);
 
   return (
     <div className="fortune-bar-item">
@@ -34,7 +28,7 @@ function FortuneBar({ value, label, icon }: { value: number; label: string; icon
           className="fortune-bar-fill"
           style={{
             width: `${percentage}%`,
-            backgroundColor: getColor(value),
+            backgroundColor: color,
           }}
         />
       </div>
@@ -43,20 +37,10 @@ function FortuneBar({ value, label, icon }: { value: number; label: string; icon
 }
 
 export function Horoscope() {
-  const [horoscope, setHoroscope] = useState<HoroscopeData | null>(null);
-  const listenerRegistered = useRef(false);
-
-  useEffect(() => {
-    if (listenerRegistered.current) return;
-    listenerRegistered.current = true;
-
-    window.electronAPI?.onHoroscopeUpdate?.((data) => {
-      setHoroscope(data);
-    });
-
-    // 主動請求最新資料（熱更新後需要）
-    window.electronAPI?.getHoroscope?.();
-  }, []);
+  const [horoscope] = useElectronData<HoroscopeData>(
+    window.electronAPI?.onHoroscopeUpdate,
+    window.electronAPI?.getHoroscope
+  );
 
   if (!horoscope) {
     return (

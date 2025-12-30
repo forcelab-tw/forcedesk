@@ -1,52 +1,13 @@
-import { useEffect, useState } from 'react';
-
-interface UsageData {
-  monthlyTotalCost: number;
-  monthlyTotalTokens: number;
-  todayCost: number;
-  todayTokens: number;
-  modelsUsed: string[];
-  resetDate: string;
-}
+import { useElectronDataWithInterval } from '../hooks';
+import { formatCost, formatTokens, formatModelName } from '../utils';
+import type { ClaudeUsageData } from '../types';
 
 export function ClaudeUsage() {
-  const [usage, setUsage] = useState<UsageData | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // 監聽來自 Electron 主進程的用量數據
-    window.electronAPI?.onClaudeUsage?.((usageData) => {
-      setUsage(usageData);
-      setLoading(false);
-    });
-
-    // 請求獲取用量數據
-    window.electronAPI?.getClaudeUsage?.();
-
-    // 每 5 分鐘更新一次
-    const interval = setInterval(() => {
-      window.electronAPI?.getClaudeUsage?.();
-    }, 5 * 60 * 1000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const formatCost = (cost: number) => {
-    return `$${cost.toFixed(2)}`;
-  };
-
-  const formatTokens = (tokens: number) => {
-    if (tokens >= 1000000) return `${(tokens / 1000000).toFixed(1)}M`;
-    if (tokens >= 1000) return `${(tokens / 1000).toFixed(1)}K`;
-    return tokens.toString();
-  };
-
-  const formatModelName = (model: string) => {
-    if (model.includes('opus')) return 'Opus';
-    if (model.includes('sonnet')) return 'Sonnet';
-    if (model.includes('haiku')) return 'Haiku';
-    return model;
-  };
+  const [usage, loading] = useElectronDataWithInterval<ClaudeUsageData>(
+    window.electronAPI?.onClaudeUsage,
+    window.electronAPI?.getClaudeUsage,
+    5 * 60 * 1000 // 每 5 分鐘更新
+  );
 
   return (
     <div className="claude-usage">

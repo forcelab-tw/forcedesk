@@ -1,15 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useElectronData } from '../hooks';
+import { getScoreColor } from '../utils';
 import type { VibeCodingData } from '../types';
 
 export function VibeCoding() {
-  const [data, setData] = useState<VibeCodingData | null>(null);
-
-  useEffect(() => {
-    window.electronAPI?.onVibeCodingUpdate?.((vibeCoding) => {
-      setData(vibeCoding);
-    });
-    window.electronAPI?.getVibeCoding?.();
-  }, []);
+  const [data] = useElectronData<VibeCodingData>(
+    window.electronAPI?.onVibeCodingUpdate,
+    window.electronAPI?.getVibeCoding
+  );
 
   if (!data) {
     return (
@@ -22,7 +19,7 @@ export function VibeCoding() {
   const score = data.scores.vibe_score;
   const circumference = 2 * Math.PI * 45;
   const progress = (score / 100) * circumference;
-  const strokeColor = score >= 70 ? '#22c55e' : score >= 40 ? '#fbbf24' : '#ef4444';
+  const strokeColor = getScoreColor(score);
 
   return (
     <div className="vibe-coding-widget">

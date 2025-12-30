@@ -1,16 +1,8 @@
+import { formatSpeed } from '../utils';
+
 interface NetworkStatsProps {
   rxSpeed: number;
   txSpeed: number;
-}
-
-function formatSpeed(bytesPerSecond: number): string {
-  if (bytesPerSecond < 1024) {
-    return `${bytesPerSecond} B/s`;
-  } else if (bytesPerSecond < 1024 * 1024) {
-    return `${(bytesPerSecond / 1024).toFixed(1)} KB/s`;
-  } else {
-    return `${(bytesPerSecond / (1024 * 1024)).toFixed(2)} MB/s`;
-  }
 }
 
 export function NetworkStats({ rxSpeed, txSpeed }: NetworkStatsProps) {

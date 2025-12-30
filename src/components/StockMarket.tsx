@@ -1,44 +1,19 @@
-import { useEffect, useState } from 'react';
-
-interface StockIndex {
-  symbol: string;
-  name: string;
-  price: number;
-  change: number;
-  changePercent: number;
-  isMarketOpen: boolean;
-}
-
-interface StockMarketData {
-  taiwan: StockIndex | null;
-  us: StockIndex[];
-  lastUpdate: string;
-}
+import { useState } from 'react';
+import { useElectronListener } from '../hooks';
+import { formatPrice, formatPercentChange, getStockColor } from '../utils';
+import type { StockIndex, StockMarketData } from '../types';
 
 export function StockMarket() {
   const [stockData, setStockData] = useState<StockMarketData | null>(null);
 
-  useEffect(() => {
+  useElectronListener(() => {
     window.electronAPI?.onStockUpdate?.((data) => {
       setStockData(data);
     });
-  }, []);
-
-  const formatPrice = (price: number, isTaiwan: boolean) => {
-    if (isTaiwan) {
-      return price.toLocaleString('zh-TW', { maximumFractionDigits: 2 });
-    }
-    return price.toLocaleString('en-US', { maximumFractionDigits: 2 });
-  };
-
-  const formatChange = (change: number, changePercent: number) => {
-    const sign = change >= 0 ? '+' : '';
-    return `${sign}${change.toFixed(2)} (${sign}${changePercent.toFixed(2)}%)`;
-  };
+  });
 
   const renderStockItem = (stock: StockIndex, isTaiwan: boolean = false) => {
-    const isUp = stock.change >= 0;
-    const colorClass = isUp ? 'stock-up' : 'stock-down';
+    const color = getStockColor(stock.change, isTaiwan);
 
     return (
       <div key={stock.symbol} className="stock-item">
@@ -47,11 +22,11 @@ export function StockMarket() {
           {stock.isMarketOpen && <span className="stock-market-open" />}
         </div>
         <div className="stock-item-body">
-          <span className={`stock-price ${colorClass}`}>
+          <span className="stock-price" style={{ color }}>
             {formatPrice(stock.price, isTaiwan)}
           </span>
-          <span className={`stock-change ${colorClass}`}>
-            {formatChange(stock.change, stock.changePercent)}
+          <span className="stock-change" style={{ color }}>
+            {stock.change >= 0 ? '+' : ''}{stock.change.toFixed(2)} ({formatPercentChange(stock.changePercent)})
           </span>
         </div>
       </div>

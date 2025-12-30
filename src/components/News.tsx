@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { useElectronListener, useInterval } from '../hooks';
 import type { NewsData, NewsItemUpdate } from '../types';
 
 const CAROUSEL_INTERVAL = 8000; // 8 秒切換一則
@@ -23,8 +24,6 @@ export function News() {
   const [newsData, setNewsData] = useState<NewsData | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [imageError, setImageError] = useState(false);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const listenerRegistered = useRef(false);
 
   // 當新聞切換時重置圖片錯誤狀態
   useEffect(() => {
@@ -43,33 +42,24 @@ export function News() {
     });
   }, []);
 
-  useEffect(() => {
-    if (listenerRegistered.current) return;
-    listenerRegistered.current = true;
-
+  // 註冊監聽器
+  useElectronListener(() => {
     window.electronAPI?.onNewsUpdate?.((data) => {
       setNewsData(data);
-      setCurrentIndex(0); // 重置索引
+      setCurrentIndex(0);
     });
-
-    // 監聽單筆新聞更新
     window.electronAPI?.onNewsItemUpdate?.(handleNewsItemUpdate);
   }, [handleNewsItemUpdate]);
 
   // 輪播邏輯
-  useEffect(() => {
-    if (!newsData || newsData.items.length <= 1) return;
-
-    intervalRef.current = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % newsData.items.length);
-    }, CAROUSEL_INTERVAL);
-
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
+  useInterval(
+    () => {
+      if (newsData && newsData.items.length > 1) {
+        setCurrentIndex((prev) => (prev + 1) % newsData.items.length);
       }
-    };
-  }, [newsData]);
+    },
+    newsData && newsData.items.length > 1 ? CAROUSEL_INTERVAL : null
+  );
 
   if (!newsData || newsData.items.length === 0) {
     return (
