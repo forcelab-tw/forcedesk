@@ -10,6 +10,9 @@ import { safeSend, isWindowValid } from '../utils';
 const execAsync = promisify(exec);
 const TODOS_FILE = path.join(os.homedir(), '.todos');
 
+// 記錄 Reminders 是否可用（避免重複嘗試失敗的操作）
+let remindersAvailable: boolean | null = null;
+
 /**
  * 從 macOS Reminders 取得今日待辦事項
  */
@@ -73,6 +76,9 @@ async function getRemindersToday(): Promise<TodoItem[]> {
     const { stdout } = await Promise.race([execPromise, timeoutPromise]);
     const lines = stdout.trim().split('\n').filter((line: string) => line.trim());
 
+    // 成功取得，標記為可用
+    remindersAvailable = true;
+
     return lines.map((line: string) => {
       const trimmed = line.trim();
       const completed = trimmed.startsWith('[x]') || trimmed.startsWith('[X]');
@@ -88,7 +94,11 @@ async function getRemindersToday(): Promise<TodoItem[]> {
       };
     });
   } catch (error) {
-    console.error('[Todos] Failed to get reminders:', error);
+    // 標記為不可用，之後不再嘗試
+    if (remindersAvailable === null) {
+      console.log('[Todos] Reminders not accessible, will use file fallback');
+      remindersAvailable = false;
+    }
     return [];
   }
 }
@@ -152,6 +162,19 @@ export async function loadAndSendTodos(mainWindow: BrowserWindow | null): Promis
 
   try {
     console.log('[Todos] Loading todos...');
+
+    // 如果已知 Reminders 不可用，直接使用檔案
+    if (remindersAvailable === false) {
+      if (fs.existsSync(TODOS_FILE)) {
+        const content = fs.readFileSync(TODOS_FILE, 'utf-8');
+        const todos = parseTodos(content);
+        safeSend(mainWindow, 'todo-update', todos);
+      } else {
+        safeSend(mainWindow, 'todo-update', []);
+      }
+      return;
+    }
+
     // 優先從 macOS Reminders 取得
     const reminders = await getRemindersToday();
     console.log('[Todos] Reminders count:', reminders.length);

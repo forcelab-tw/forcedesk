@@ -86,7 +86,9 @@ function createWindow(): void {
   if (isDev) {
     mainWindow.loadURL('http://localhost:5173');
   } else {
-    mainWindow.loadFile(path.join(__dirname, '../dist/index.html'));
+    // 打包後路徑：__dirname = app.asar/dist-electron/electron
+    // 需要往上兩層到 app.asar，再進入 dist
+    mainWindow.loadFile(path.join(__dirname, '../../dist/index.html'));
   }
 
   // 啟動系統資訊更新
