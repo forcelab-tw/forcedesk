@@ -5,6 +5,7 @@
 }
 
 :root {
+  /* 字體設定 */
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
   font-size: 14px;
   line-height: 1.4;
@@ -12,6 +13,83 @@
   color: rgba(255, 255, 255, 0.95);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* ===== 設計系統變數 ===== */
+
+  /* 背景顏色 */
+  --color-bg-primary: rgba(0, 0, 0, 0.65);
+  --color-bg-secondary: rgba(255, 255, 255, 0.05);
+  --color-bg-tertiary: rgba(255, 255, 255, 0.03);
+  --color-bg-hover: rgba(255, 255, 255, 0.1);
+  --color-bg-active: rgba(255, 255, 255, 0.15);
+
+  /* 文字顏色 */
+  --color-text-primary: rgba(255, 255, 255, 0.95);
+  --color-text-secondary: rgba(255, 255, 255, 0.7);
+  --color-text-muted: rgba(255, 255, 255, 0.5);
+  --color-text-disabled: rgba(255, 255, 255, 0.3);
+
+  /* 邊框顏色 */
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-border-light: rgba(255, 255, 255, 0.05);
+
+  /* 語意顏色 */
+  --color-success: #22c55e;
+  --color-warning: #fbbf24;
+  --color-error: #ef4444;
+  --color-info: #60a5fa;
+
+  /* 股市顏色（台灣：紅漲綠跌）*/
+  --color-stock-up-tw: #ef4444;
+  --color-stock-down-tw: #22c55e;
+
+  /* 股市顏色（美國：綠漲紅跌）*/
+  --color-stock-up-us: #22c55e;
+  --color-stock-down-us: #ef4444;
+
+  /* 番茄鐘顏色 */
+  --color-pomodoro-work: #ef4444;
+  --color-pomodoro-short-break: #22c55e;
+  --color-pomodoro-long-break: #3b82f6;
+
+  /* 漸層背景 */
+  --gradient-primary: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  --gradient-card: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+
+  /* 間距 */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 20px;
+  --spacing-2xl: 24px;
+
+  /* 圓角 */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  /* 字體大小 */
+  --font-xs: 9px;
+  --font-sm: 11px;
+  --font-base: 12px;
+  --font-md: 13px;
+  --font-lg: 14px;
+  --font-xl: 16px;
+  --font-2xl: 20px;
+  --font-3xl: 24px;
+
+  /* 陰影 */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.4);
+
+  /* 動畫 */
+  --transition-fast: 150ms ease;
+  --transition-normal: 200ms ease;
+  --transition-slow: 300ms ease;
 }
 
 html, body, #root {
