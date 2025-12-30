@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useElectronListener, useInterval } from '../hooks';
 import type { NewsData, NewsItemUpdate } from '../types';
-
-const CAROUSEL_INTERVAL = 8000; // 8 秒切換一則
+import { UI_CONSTANTS } from '../shared/constants';
+import { LoadingState } from './common/LoadingState';
 
 // 驗證圖片 URL 是否有效
 function isValidImageUrl(url: string | undefined): boolean {
@@ -58,13 +58,13 @@ export function News() {
         setCurrentIndex((prev) => (prev + 1) % newsData.items.length);
       }
     },
-    newsData && newsData.items.length > 1 ? CAROUSEL_INTERVAL : null
+    newsData && newsData.items.length > 1 ? UI_CONSTANTS.NEWS_CAROUSEL_INTERVAL : null
   );
 
   if (!newsData || newsData.items.length === 0) {
     return (
       <div className="news">
-        <div className="news-loading">載入中...</div>
+        <LoadingState className="news-loading" />
       </div>
     );
   }

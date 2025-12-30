@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useElectronListener } from '../hooks';
 import { formatPrice, formatPercentChange, getStockColor } from '../utils';
 import type { StockIndex, StockMarketData } from '../types';
+import { LoadingState } from './common/LoadingState';
 
 export function StockMarket() {
   const [stockData, setStockData] = useState<StockMarketData | null>(null);
@@ -36,7 +37,7 @@ export function StockMarket() {
   if (!stockData) {
     return (
       <div className="stock-market">
-        <div className="stock-loading">載入股市資料中...</div>
+        <LoadingState message="載入股市資料中..." className="stock-loading" />
       </div>
     );
   }

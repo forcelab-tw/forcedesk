@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { LoadingState } from './common/LoadingState';
 
 interface WeatherData {
   temperature: number;
@@ -55,7 +56,7 @@ export function Weather() {
   if (!weather) {
     return (
       <div className="weather">
-        <div className="weather-loading">載入天氣資料中...</div>
+        <LoadingState message="載入天氣資料中..." className="weather-loading" />
       </div>
     );
   }

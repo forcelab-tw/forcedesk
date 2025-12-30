@@ -1,6 +1,7 @@
 import { BrowserWindow } from 'electron';
 import type { HoroscopeData } from '../../src/shared/types/horoscope';
 import { fetchJson } from '../utils/http';
+import { safeSend, isWindowValid } from '../utils';
 
 // 全域狀態
 let currentHoroscope: HoroscopeData | null = null;
@@ -61,12 +62,12 @@ export async function getHoroscopeData(): Promise<HoroscopeData | null> {
  * 發送星座運勢更新
  */
 export async function sendHoroscopeUpdate(mainWindow: BrowserWindow | null): Promise<void> {
-  if (!mainWindow || mainWindow.isDestroyed()) return;
+  if (!isWindowValid(mainWindow)) return;
 
   const horoscope = await getHoroscopeData();
   if (horoscope) {
     currentHoroscope = horoscope;
-    mainWindow.webContents.send('horoscope-update', horoscope);
+    safeSend(mainWindow, 'horoscope-update', horoscope);
   }
 }
 

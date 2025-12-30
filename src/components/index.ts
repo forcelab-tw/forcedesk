@@ -14,3 +14,6 @@ export { News } from './News';
 export { Horoscope } from './Horoscope';
 export { MatrixRain } from './MatrixRain';
 export { VibeCoding } from './VibeCoding';
+
+// Common components
+export { LoadingState } from './common/LoadingState';

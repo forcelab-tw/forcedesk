@@ -1,6 +1,7 @@
 import { useElectronData } from '../hooks';
 import { getScoreColor } from '../utils';
 import type { HoroscopeData } from '../types';
+import { LoadingState } from './common/LoadingState';
 
 // 運勢項目配置
 const FORTUNE_ITEMS = [
@@ -45,7 +46,7 @@ export function Horoscope() {
   if (!horoscope) {
     return (
       <div className="horoscope">
-        <div className="horoscope-loading">載入中...</div>
+        <LoadingState className="horoscope-loading" />
       </div>
     );
   }

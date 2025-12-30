@@ -1,6 +1,7 @@
 import { useElectronDataWithInterval } from '../hooks';
 import { formatCost, formatTokens, formatModelName } from '../utils';
 import type { ClaudeUsageData } from '../types';
+import { LoadingState } from './common/LoadingState';
 
 export function ClaudeUsage() {
   const [usage, loading] = useElectronDataWithInterval<ClaudeUsageData>(
@@ -12,7 +13,7 @@ export function ClaudeUsage() {
   return (
     <div className="claude-usage">
       {loading ? (
-        <div className="claude-usage-loading">載入中...</div>
+        <LoadingState className="claude-usage-loading" />
       ) : usage ? (
         <>
           <div className="claude-usage-header">

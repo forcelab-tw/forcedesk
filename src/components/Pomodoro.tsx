@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useElectronListener, useInterval } from '../hooks';
 import { formatTime, POMODORO_COLORS } from '../utils';
+import { POMODORO_DURATIONS } from '../shared/constants';
 
 type TimerMode = 'work' | 'shortBreak' | 'longBreak';
 
@@ -11,9 +12,9 @@ interface TimerConfig {
 }
 
 const DEFAULT_CONFIG: TimerConfig = {
-  work: 25 * 60,
-  shortBreak: 5 * 60,
-  longBreak: 15 * 60,
+  work: POMODORO_DURATIONS.WORK,
+  shortBreak: POMODORO_DURATIONS.SHORT_BREAK,
+  longBreak: POMODORO_DURATIONS.LONG_BREAK,
 };
 
 const MODE_LABELS: Record<TimerMode, string> = {

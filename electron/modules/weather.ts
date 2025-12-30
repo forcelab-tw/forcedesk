@@ -1,6 +1,7 @@
 import type { BrowserWindow } from 'electron';
 import type { WeatherData } from '../../src/shared/types/weather';
 import { fetchJson } from '../utils/http';
+import { safeSend, isWindowValid } from '../utils';
 
 // WMO 天氣代碼對應
 const WMO_CODES: Record<number, string> = {
@@ -113,10 +114,10 @@ export async function getWeatherData(): Promise<WeatherData | null> {
  * 發送天氣更新到渲染進程
  */
 export async function sendWeatherUpdate(mainWindow: BrowserWindow | null): Promise<void> {
-  if (!mainWindow || mainWindow.isDestroyed()) return;
+  if (!isWindowValid(mainWindow)) return;
 
   const weather = await getWeatherData();
   if (weather) {
-    mainWindow.webContents.send('weather-update', weather);
+    safeSend(mainWindow, 'weather-update', weather);
   }
 }

@@ -10,6 +10,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import * as os from 'os';
 import { getSystemInfo } from './system-info';
+import { UPDATE_INTERVALS } from './constants';
 
 // 模組匯入
 import {
@@ -146,8 +147,8 @@ function startSystemInfoUpdates(): void {
   sendTimeUpdate();
 
   // 設定定時器
-  systemInfoInterval = setInterval(sendSystemInfo, 2000);
-  setInterval(sendTimeUpdate, 1000);
+  systemInfoInterval = setInterval(sendSystemInfo, UPDATE_INTERVALS.SYSTEM_INFO);
+  setInterval(sendTimeUpdate, UPDATE_INTERVALS.TIME);
 }
 
 /**
@@ -156,31 +157,31 @@ function startSystemInfoUpdates(): void {
 function startDataUpdates(): void {
   // 待辦事項
   loadAndSendTodos(mainWindow);
-  setInterval(() => loadAndSendTodos(mainWindow), 60 * 1000);
+  setInterval(() => loadAndSendTodos(mainWindow), UPDATE_INTERVALS.TODO);
 
   // 天氣更新
   sendWeatherUpdate(mainWindow);
-  weatherInterval = setInterval(() => sendWeatherUpdate(mainWindow), 15 * 60 * 1000);
+  weatherInterval = setInterval(() => sendWeatherUpdate(mainWindow), UPDATE_INTERVALS.WEATHER);
 
   // 股市更新
   sendStockUpdate(mainWindow);
-  setInterval(() => sendStockUpdate(mainWindow), 5 * 60 * 1000);
+  setInterval(() => sendStockUpdate(mainWindow), UPDATE_INTERVALS.STOCK);
 
   // 新聞更新
   sendNewsUpdate(mainWindow);
-  setInterval(() => sendNewsUpdate(mainWindow), 30 * 60 * 1000);
+  setInterval(() => sendNewsUpdate(mainWindow), UPDATE_INTERVALS.NEWS);
 
   // 星座運勢更新
   sendHoroscopeUpdate(mainWindow);
-  setInterval(() => sendHoroscopeUpdate(mainWindow), 6 * 60 * 60 * 1000);
+  setInterval(() => sendHoroscopeUpdate(mainWindow), UPDATE_INTERVALS.HOROSCOPE);
 
   // Vibe Coding 更新（等星座數據載入後）
   setTimeout(() => sendVibeCodingUpdate(mainWindow), 3000);
-  setInterval(() => sendVibeCodingUpdate(mainWindow), 6 * 60 * 60 * 1000);
+  setInterval(() => sendVibeCodingUpdate(mainWindow), UPDATE_INTERVALS.VIBE_CODING);
 
   // Claude 活動狀態檢查
   sendClaudeActiveStatus(mainWindow);
-  setInterval(() => sendClaudeActiveStatus(mainWindow), 2000);
+  setInterval(() => sendClaudeActiveStatus(mainWindow), UPDATE_INTERVALS.CLAUDE_MONITOR);
 }
 
 // ============ IPC 處理器 ============

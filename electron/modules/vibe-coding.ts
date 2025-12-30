@@ -2,6 +2,7 @@ import { BrowserWindow } from 'electron';
 import type { VibeCodingData } from '../../src/shared/types/vibe-coding';
 import { executeClaudePrint } from '../utils/claude-cli';
 import { getCurrentHoroscope } from './horoscope';
+import { safeSend, isWindowValid } from '../utils';
 
 // 全域狀態
 let currentVibeCoding: VibeCodingData | null = null;
@@ -98,12 +99,12 @@ Analyze the user's Date and Zodiac Sign to determine the "Vibe Coding" status. O
  * 發送 Vibe Coding 更新
  */
 export async function sendVibeCodingUpdate(mainWindow: BrowserWindow | null): Promise<void> {
-  if (!mainWindow || mainWindow.isDestroyed()) return;
+  if (!isWindowValid(mainWindow)) return;
 
   const data = await getVibeCodingData();
   if (data) {
     currentVibeCoding = data;
-    mainWindow.webContents.send('vibe-coding-update', data);
+    safeSend(mainWindow, 'vibe-coding-update', data);
   }
 }
 

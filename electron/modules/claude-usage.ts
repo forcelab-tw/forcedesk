@@ -2,6 +2,7 @@ import type { BrowserWindow } from 'electron';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 import type { ClaudeUsageData } from '../../src/shared/types/claude';
+import { safeSendAsync } from '../utils';
 
 const execAsync = promisify(exec);
 
@@ -69,8 +70,5 @@ export async function getClaudeUsage(): Promise<ClaudeUsageData | null> {
  * 發送 Claude 用量更新
  */
 export async function sendClaudeUsage(mainWindow: BrowserWindow | null): Promise<void> {
-  if (!mainWindow || mainWindow.isDestroyed()) return;
-
-  const usage = await getClaudeUsage();
-  mainWindow.webContents.send('claude-usage', usage);
+  await safeSendAsync(mainWindow, 'claude-usage', getClaudeUsage);
 }

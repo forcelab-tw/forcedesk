@@ -5,6 +5,7 @@ import * as os from 'os';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 import type { TodoItem } from '../../src/shared/types/todo';
+import { safeSend, isWindowValid } from '../utils';
 
 const execAsync = promisify(exec);
 const TODOS_FILE = path.join(os.homedir(), '.todos');
@@ -62,7 +63,14 @@ async function getRemindersToday(): Promise<TodoItem[]> {
   `;
 
   try {
-    const { stdout } = await execAsync(`osascript -e '${script.replace(/'/g, "'\"'\"'")}'`);
+    // 使用 Promise.race 設定 5 秒超時
+    const timeoutPromise = new Promise<never>((_, reject) => {
+      setTimeout(() => reject(new Error('Reminders access timeout')), 5000);
+    });
+
+    const execPromise = execAsync(`osascript -e '${script.replace(/'/g, "'\"'\"'")}'`);
+
+    const { stdout } = await Promise.race([execPromise, timeoutPromise]);
     const lines = stdout.trim().split('\n').filter((line: string) => line.trim());
 
     return lines.map((line: string) => {
@@ -80,7 +88,7 @@ async function getRemindersToday(): Promise<TodoItem[]> {
       };
     });
   } catch (error) {
-    console.error('Failed to get reminders:', error);
+    console.error('[Todos] Failed to get reminders:', error);
     return [];
   }
 }
@@ -90,48 +98,80 @@ async function getRemindersToday(): Promise<TodoItem[]> {
  */
 function parseTodos(content: string): TodoItem[] {
   const lines = content.split('\n').filter((line) => line.trim());
-  return lines.map((line) => {
-    const trimmed = line.trim();
-    if (trimmed.startsWith('[x]') || trimmed.startsWith('[X]')) {
-      return { text: trimmed.slice(3).trim(), completed: true };
-    } else if (trimmed.startsWith('[ ]')) {
-      return { text: trimmed.slice(3).trim(), completed: false };
-    } else if (trimmed.startsWith('- [x]') || trimmed.startsWith('- [X]')) {
-      return { text: trimmed.slice(5).trim(), completed: true };
-    } else if (trimmed.startsWith('- [ ]')) {
-      return { text: trimmed.slice(5).trim(), completed: false };
-    } else if (trimmed.startsWith('-')) {
-      return { text: trimmed.slice(1).trim(), completed: false };
-    } else if (trimmed.startsWith('#')) {
-      return null;
-    } else {
-      return { text: trimmed, completed: false };
-    }
-  }).filter((item): item is TodoItem => item !== null);
+  return lines
+    .map((line): TodoItem | null => {
+      const trimmed = line.trim();
+      let text = '';
+      let completed = false;
+      let time: string | undefined;
+
+      if (trimmed.startsWith('[x]') || trimmed.startsWith('[X]')) {
+        text = trimmed.slice(3).trim();
+        completed = true;
+      } else if (trimmed.startsWith('[ ]')) {
+        text = trimmed.slice(3).trim();
+        completed = false;
+      } else if (trimmed.startsWith('- [x]') || trimmed.startsWith('- [X]')) {
+        text = trimmed.slice(5).trim();
+        completed = true;
+      } else if (trimmed.startsWith('- [ ]')) {
+        text = trimmed.slice(5).trim();
+        completed = false;
+      } else if (trimmed.startsWith('-')) {
+        text = trimmed.slice(1).trim();
+        completed = false;
+      } else if (trimmed.startsWith('#')) {
+        return null;
+      } else {
+        text = trimmed;
+        completed = false;
+      }
+
+      // 解析時間格式 (HH:MM|text)
+      const pipeIndex = text.indexOf('|');
+      if (pipeIndex > 0) {
+        const timeStr = text.slice(0, pipeIndex).trim();
+        if (/^\d{1,2}:\d{2}$/.test(timeStr)) {
+          time = timeStr;
+          text = text.slice(pipeIndex + 1).trim();
+        }
+      }
+
+      const result: TodoItem = { text, completed };
+      if (time) result.time = time;
+      return result;
+    })
+    .filter((item): item is TodoItem => item !== null);
 }
 
 /**
  * 讀取並發送待辦事項
  */
 export async function loadAndSendTodos(mainWindow: BrowserWindow | null): Promise<void> {
-  if (!mainWindow || mainWindow.isDestroyed()) return;
+  if (!isWindowValid(mainWindow)) return;
 
   try {
+    console.log('[Todos] Loading todos...');
     // 優先從 macOS Reminders 取得
     const reminders = await getRemindersToday();
+    console.log('[Todos] Reminders count:', reminders.length);
 
     if (reminders.length > 0) {
-      mainWindow.webContents.send('todo-update', reminders);
+      console.log('[Todos] Sending reminders to renderer');
+      safeSend(mainWindow, 'todo-update', reminders);
     } else if (fs.existsSync(TODOS_FILE)) {
+      console.log('[Todos] Fallback to file:', TODOS_FILE);
       // 如果沒有提醒事項，fallback 到檔案
       const content = fs.readFileSync(TODOS_FILE, 'utf-8');
       const todos = parseTodos(content);
-      mainWindow.webContents.send('todo-update', todos);
+      console.log('[Todos] Parsed todos:', todos);
+      safeSend(mainWindow, 'todo-update', todos);
     } else {
-      mainWindow.webContents.send('todo-update', []);
+      console.log('[Todos] No todos found, sending empty array');
+      safeSend(mainWindow, 'todo-update', []);
     }
   } catch (error) {
     console.error('Failed to load todos:', error);
-    mainWindow.webContents.send('todo-update', []);
+    safeSend(mainWindow, 'todo-update', []);
   }
 }

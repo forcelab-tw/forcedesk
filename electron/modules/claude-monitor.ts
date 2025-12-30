@@ -2,6 +2,7 @@ import type { BrowserWindow } from 'electron';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as os from 'os';
+import { safeSendAsync } from '../utils';
 
 let lastClaudeActiveTime = 0;
 
@@ -67,8 +68,5 @@ export async function checkClaudeActive(): Promise<boolean> {
  * 發送 Claude 活動狀態
  */
 export async function sendClaudeActiveStatus(mainWindow: BrowserWindow | null): Promise<void> {
-  if (!mainWindow || mainWindow.isDestroyed()) return;
-
-  const isActive = await checkClaudeActive();
-  mainWindow.webContents.send('claude-active', isActive);
+  await safeSendAsync(mainWindow, 'claude-active', checkClaudeActive);
 }

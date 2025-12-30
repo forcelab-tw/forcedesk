@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { usePolling } from '../hooks';
 
 const weekDays = ['日', '一', '二', '三', '四', '五', '六'];
 
@@ -13,14 +14,12 @@ function getFirstDayOfMonth(year: number, month: number): number {
 export function Calendar() {
   const [currentDate, setCurrentDate] = useState(new Date());
 
-  useEffect(() => {
-    // 每分鐘更新當前日期（處理跨日）
-    const interval = setInterval(() => {
-      setCurrentDate(new Date());
-    }, 60 * 1000);
-
-    return () => clearInterval(interval);
-  }, []);
+  // 每分鐘更新當前日期（處理跨日）
+  usePolling(
+    () => setCurrentDate(new Date()),
+    60 * 1000,
+    false // 不需要立即執行，初始 state 已經是當前日期
+  );
 
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();

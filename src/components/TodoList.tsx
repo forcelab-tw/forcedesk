@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import type { TodoItem } from '../types';
-
-const MAX_DISPLAY_COUNT = 5;
+import { UI_CONSTANTS, UPDATE_INTERVALS } from '../shared/constants';
+import { usePolling } from '../hooks';
 
 export function TodoList() {
   const [todos, setTodos] = useState<TodoItem[]>([]);
@@ -11,17 +11,14 @@ export function TodoList() {
     window.electronAPI?.onTodoUpdate?.((items) => {
       setTodos(items);
     });
-
-    // 請求載入待辦事項
-    window.electronAPI?.loadTodos?.();
-
-    // 每 30 秒重新載入
-    const interval = setInterval(() => {
-      window.electronAPI?.loadTodos?.();
-    }, 30 * 1000);
-
-    return () => clearInterval(interval);
   }, []);
+
+  // 定期載入待辦事項
+  usePolling(
+    () => window.electronAPI?.loadTodos?.(),
+    UPDATE_INTERVALS.TODO,
+    true // 立即執行一次
+  );
 
   const completedCount = todos.filter((t) => t.completed).length;
   const totalCount = todos.length;
@@ -35,7 +32,7 @@ export function TodoList() {
       )}
 
       <div className="todo-items">
-        {Array.from({ length: MAX_DISPLAY_COUNT }).map((_, index) => {
+        {Array.from({ length: UI_CONSTANTS.TODO_MAX_DISPLAY }).map((_, index) => {
           const todo = todos[index];
           if (todo) {
             return (
@@ -53,8 +50,8 @@ export function TodoList() {
           }
           return <div key={index} className="todo-item todo-item-placeholder" />;
         })}
-        {todos.length > MAX_DISPLAY_COUNT && (
-          <div className="todo-more">還有 {todos.length - MAX_DISPLAY_COUNT} 項...</div>
+        {todos.length > UI_CONSTANTS.TODO_MAX_DISPLAY && (
+          <div className="todo-more">還有 {todos.length - UI_CONSTANTS.TODO_MAX_DISPLAY} 項...</div>
         )}
       </div>
     </div>

@@ -1,6 +1,7 @@
 import { useElectronData } from '../hooks';
 import { getScoreColor } from '../utils';
 import type { VibeCodingData } from '../types';
+import { LoadingState } from './common/LoadingState';
 
 export function VibeCoding() {
   const [data] = useElectronData<VibeCodingData>(
@@ -11,7 +12,7 @@ export function VibeCoding() {
   if (!data) {
     return (
       <div className="vibe-coding-widget">
-        <div className="vibe-loading">載入中...</div>
+        <LoadingState className="vibe-loading" />
       </div>
     );
   }

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { UPDATE_INTERVALS } from '../shared/constants';
 
 interface ClockProps {
   time?: string;
@@ -31,7 +32,7 @@ export function Clock({ time: externalTime, date: externalDate }: ClockProps) {
       };
 
       updateTime();
-      const interval = setInterval(updateTime, 1000);
+      const interval = setInterval(updateTime, UPDATE_INTERVALS.TIME);
       return () => clearInterval(interval);
     }
   }, [externalTime]);

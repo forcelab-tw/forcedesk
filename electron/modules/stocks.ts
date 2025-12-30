@@ -1,6 +1,7 @@
 import type { BrowserWindow } from 'electron';
 import type { StockIndex, StockMarketData } from '../../src/shared/types/stock';
 import { fetchJson } from '../utils/http';
+import { safeSendAsync } from '../utils';
 
 // 股市指數符號
 const STOCK_SYMBOLS = {
@@ -82,8 +83,5 @@ export async function getStockMarketData(): Promise<StockMarketData> {
  * 發送股市更新到渲染進程
  */
 export async function sendStockUpdate(mainWindow: BrowserWindow | null): Promise<void> {
-  if (!mainWindow || mainWindow.isDestroyed()) return;
-
-  const stockData = await getStockMarketData();
-  mainWindow.webContents.send('stock-update', stockData);
+  await safeSendAsync(mainWindow, 'stock-update', getStockMarketData);
 }
