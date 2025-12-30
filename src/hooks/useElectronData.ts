@@ -9,7 +9,7 @@ import { useState, useEffect, useRef } from 'react';
  * @returns [data, loading] - 資料和載入狀態
  */
 export function useElectronData<T>(
-  setupListener: ((callback: (data: T) => void) => void) | undefined,
+  setupListener: ((callback: (data: T | null) => void) => void) | undefined,
   requestData: (() => void) | undefined
 ): [T | null, boolean] {
   const [data, setData] = useState<T | null>(null);
@@ -21,7 +21,7 @@ export function useElectronData<T>(
     registered.current = true;
 
     // 設定監聽器
-    setupListener?.((newData: T) => {
+    setupListener?.((newData: T | null) => {
       setData(newData);
       setLoading(false);
     });
@@ -43,7 +43,7 @@ export function useElectronData<T>(
  * @returns [data, loading] - 資料和載入狀態
  */
 export function useElectronDataWithInterval<T>(
-  setupListener: ((callback: (data: T) => void) => void) | undefined,
+  setupListener: ((callback: (data: T | null) => void) => void) | undefined,
   requestData: (() => void) | undefined,
   interval: number
 ): [T | null, boolean] {
@@ -56,7 +56,7 @@ export function useElectronDataWithInterval<T>(
     registered.current = true;
 
     // 設定監聽器
-    setupListener?.((newData: T) => {
+    setupListener?.((newData: T | null) => {
       setData(newData);
       setLoading(false);
     });
